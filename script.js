@@ -1,38 +1,40 @@
-const correctCode = "1234";  // Code d'accès unique
-const questions = [
-    { q: "Un signal analogique a une fréquence fixe.", a: false, e: "Un signal analogique varie continuellement en amplitude et en fréquence." },
-    { q: "Un microphone à condensateur nécessite une alimentation fantôme.", a: true, e: "Les microphones à condensateur nécessitent généralement une alimentation de +48V." }
-];
+function showTab(tab) {
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach((section) => {
+        section.classList.remove('active');
+    });
+    document.getElementById(tab + '-section').classList.add('active');
+}
 
-let score = 0, index = 0;
-
-function checkAccess() {
-    const inputCode = document.getElementById("access-code").value;
-    if (inputCode === correctCode) {
-        document.getElementById("access-container").style.display = "none";
-        document.getElementById("quiz-container").style.display = "block";
-        loadQuestion();
-    } else {
-        alert("Code incorrect !");
+function saveFiche() {
+    const title = document.getElementById("new-fiche-title").value;
+    const content = document.getElementById("new-fiche-content").value;
+    if (title && content) {
+        const ficheElement = document.createElement("div");
+        ficheElement.innerHTML = `<h3>${title}</h3><p>${content}</p>`;
+        document.getElementById("fiches-list").appendChild(ficheElement);
     }
 }
 
-function loadQuestion() {
-    if (index < questions.length) {
-        document.getElementById("question").textContent = questions[index].q;
-        document.getElementById("explanation").textContent = "";
-    } else {
-        document.getElementById("quiz-container").style.display = "none";
-        document.getElementById("score-container").style.display = "block";
-        document.getElementById("score").textContent = `Votre score : ${score}/${questions.length}`;
+function generateFiche() {
+    const input = document.getElementById("generate-input").value;
+    if (input) {
+        document.getElementById("generated-fiche").innerText = `Fiche générée pour : ${input}`;
     }
 }
 
-function answer(userAnswer) {
-    if (userAnswer === questions[index].a) {
-        score++;
+function addQuestion() {
+    const questionContainer = document.getElementById("question-container");
+    const newQuestion = document.createElement("div");
+    newQuestion.innerHTML = `<input type="text" class="question" placeholder="Entrez une question">
+                             <input type="radio" name="answer${questionContainer.children.length}" value="true"> Vrai
+                             <input type="radio" name="answer${questionContainer.children.length}" value="false"> Faux`;
+    questionContainer.appendChild(newQuestion);
+}
+
+function saveQuiz() {
+    const title = document.getElementById("quiz-title").value;
+    if (title) {
+        alert("Quiz enregistré !");
     }
-    document.getElementById("explanation").textContent = questions[index].e;
-    index++;
-    setTimeout(loadQuestion, 2000);
 }

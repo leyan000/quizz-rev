@@ -3,27 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz de Révision</title>
+    <title>Quiz et Fiches de Révision Collaboratifs</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="access-container">
-        <h2>Entrez le code d'accès</h2>
-        <input type="text" id="access-code" placeholder="Code d'accès">
-        <button onclick="checkAccess()">Accéder</button>
-    </div>
+    <header>
+        <h1>Quiz et Fiches de Révision Collaboratifs</h1>
+    </header>
 
-    <div id="quiz-container" style="display: none;">
-        <h2>Quiz de Révision</h2>
-        <p id="question"></p>
-        <button onclick="answer(true)">Vrai</button>
-        <button onclick="answer(false)">Faux</button>
-        <p id="explanation"></p>
-    </div>
+    <nav>
+        <a href="javascript:void(0)" onclick="showTab('quiz')">Quiz</a>
+        <a href="javascript:void(0)" onclick="showTab('fiches')">Fiches de Révision</a>
+        <a href="javascript:void(0)" onclick="showTab('generate')">Générer Fiche</a>
+        <a href="javascript:void(0)" onclick="showTab('createQuiz')">Créer un Quiz</a>
+    </nav>
 
-    <div id="score-container" style="display: none;">
-        <h2>Score Final</h2>
-        <p id="score"></p>
+    <div class="container">
+        <div id="quiz-section" class="content-section active">
+            <h2>Quiz de Révision</h2>
+            <div id="quiz-list"></div>
+        </div>
+
+        <div id="fiches-section" class="content-section">
+            <h2>Fiches de Révision</h2>
+            <input type="text" id="new-fiche-title" placeholder="Titre de la fiche">
+            <textarea id="new-fiche-content" placeholder="Contenu de la fiche"></textarea>
+            <button onclick="saveFiche()">Enregistrer la fiche</button>
+            <div id="fiches-list"></div>
+        </div>
+
+        <div id="generate-section" class="content-section">
+            <h2>Générer une Fiche Automatiquement</h2>
+            <textarea id="generate-input" placeholder="Entrez un sujet ou une question"></textarea>
+            <button onclick="generateFiche()">Générer la Fiche</button>
+            <div id="generated-fiche"></div>
+        </div>
+
+        <div id="create-quiz-section" class="content-section">
+            <h2>Créer un Quiz</h2>
+            <input type="text" id="quiz-title" placeholder="Titre du quiz">
+            <div id="question-container"></div>
+            <button onclick="addQuestion()">Ajouter une question</button>
+            <button onclick="saveQuiz()">Enregistrer le quiz</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
